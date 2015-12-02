@@ -1,0 +1,597 @@
+import random
+import sys
+from CardCreation import *
+from usefulFunctions import printLine
+from slowPrintFunction import slowPrint
+import time
+
+"""Nick Monteleone
+Computer Science
+November 20, 2015
+
+This is a blackjack game. Please consult the instructions in the menu to learn
+the controls and how to play."""
+
+#################################### Menu ######################################
+menu = """
+1. Play
+2. Instructions
+3. Blackjack rules
+4. Exit"""
+
+def opening():
+    printLine(79, '=')
+    slowPrint('\t\t\t\t  Blackjack 1000', .02)
+    print '\n'
+    slowPrint('\t\t\t\tBy Nick Monteleone', .02)
+    print '\n'
+    printLine(79, '=')
+
+    slowPrint('Welcome to Blackjack 1000!',.02, 30)
+    print '\n'
+    slowPrint('''Please take a look at the instructions in the menu to learn the
+controls.''', .002)
+
+def menuScreen():
+    print
+    printLine(79, '=')
+    print menu
+    print
+    printLine(79, '=')
+
+def optionExecution():
+    while True:
+        option = raw_input('Please select an option. (1-4) ').lower()
+        if '1' in option:
+            print "Let's begin!"
+            print 'First to five games wins!'
+            print
+            return
+        elif '2' in option:
+            print
+            print 'This program uses both the Python Shell and Turtle.'
+            print 'Therefore, you will need to click back and forth',
+            print 'while playing. To see your \ncards, click on the Turtle window.'
+            print 'To either hit or stand, click back onto the Python Shell.'
+            print 'Enjoy!'
+            print
+        elif '3' in option:
+            print
+            print 'How to play:'
+            print
+            print 'You will receive two cards, the dealer one.'
+            print 'Your goal is to reach a score as close to 21 as you can.'
+            print 'Choose hit to receive another card, stand to keep your score.'
+            print 'The dealer will then play to attempt to beat you.'
+            print 'Each regular value counts as its normal value.'
+            print 'A Jack, Queen, and King all count as 10.'
+            print 'An ace counts as either 11 or 1.'
+            print 'If you or the dealer receives 5 cards without busting '
+            print
+            print 'How to win:'
+            print
+            print '1. Receive a score that is closer to 21 than the dealer.'
+            print '2. Receive a score of 21 in your first two cards (Blackjack).'
+            print '3. Receive 5 cards without going over 21 (5 Card Charlie).'
+            print
+            print 'Winning the match:
+            print
+            print 'The first to five wins will be the winner of the match.'
+            print
+            print 'Goodluck!'
+            print 'Enjoy!'
+        elif '4' in option:
+            wn.bye()
+            sys.exit()
+        elif option not in '1234':
+            print 'Please enter a valid option. (1-4) '
+
+opening()
+menuScreen()
+optionExecution()
+    
+
+################################# Create Deck ###################################
+deck = []
+
+
+#Construct the deck from strings containing face values and suits
+for face in '23456789TJQKA': #T is used for 10
+    for suit in 'CDHS': #Clubs, diamonds, hearts, and spades
+        deck.append(face + suit) #Add concatenated characters to the deck
+
+#Searches through card and adds value onto input card
+def addV(x, card): 
+    if x[0] == '2':
+        write2(card)
+    elif x[0] == '3':
+        write3(card)
+    elif x[0] == '4':
+        write4(card)
+    elif x[0] == '5':
+        write5(card)
+    elif x[0] == '6':
+        write6(card)
+    elif x[0] == '7':
+        write7(card)
+    elif x[0] == '8':
+        write8(card)
+    elif x[0] == '9':
+        write9(card)
+    elif x[0] == 'T':
+        write10(card)
+    elif x[0] == 'J':
+        writeJ(card)
+    elif x[0] == 'Q':
+        writeQ(card)
+    elif x[0] == 'K':
+        writeK(card)
+    elif x[0] == 'A':
+        writeA(card)
+
+#Searches through card and adds suit onto input card
+def addS(x, card):
+    if x[1] == 'H':
+        addHeart(card)
+    elif x[1] == 'S':
+        addSpade(card)
+    elif x[1] == 'D':
+        addDiamond(card)
+    elif x[1] == 'C':
+        addClub(card)
+        
+################################# User's Cards #################################
+def getCard1():
+    global card1
+    card1 = random.choice(deck)
+    deck.remove(card1)
+
+def getCard2():
+    global card2
+    card2 = random.choice(deck)
+    deck.remove(card2)
+
+def getCard3():
+    global card3
+    card3 = random.choice(deck)
+    deck.remove(card3)
+
+def getCard4():
+    global card4
+    card4 = random.choice(deck)
+    deck.remove(card4)
+
+def getCard5():
+    global card5
+    card5 = random.choice(deck)
+    deck.remove(card5)
+
+def usersFirstCards():
+    mCard1()
+    getCard1()
+    addV(card1, 'c1')
+    addS(card1, 'c1')
+    random.shuffle(deck)
+    random.shuffle(deck)
+    mCard2()
+    getCard2()
+    addV(card2, 'c2')
+    addS(card2, 'c2')
+
+################################ House's Cards ###################################
+def getHouse1():
+    global house1
+    house1 = random.choice(deck)
+    deck.remove(house1)
+
+def getHouse2():
+    global house2
+    house2 = random.choice(deck)
+    deck.remove(house2)
+
+def getHouse3():
+    global house3
+    house3 = random.choice(deck)
+    deck.remove(house3)
+
+def getHouse4():
+    global house4
+    house4 = random.choice(deck)
+    deck.remove(house4)
+
+def getHouse5():
+    global house5
+    house5 = random.choice(deck)
+    deck.remove(house5)
+
+def houseCard1():
+    mHouse1()
+    getHouse1()
+    addV(house1, 'h1')
+    addS(house1, 'h1')
+    random.shuffle(deck)
+    random.shuffle(deck)
+    
+def firstCards():
+    usersFirstCards()
+    dividingLine()
+    houseCard1()
+
+############################### User Card Values ##################################
+uHand = []
+hHand = []
+gameOver = False
+hit = False
+stand = False
+dHit = True
+i = 1
+t = 0
+ht = 0
+u = 0 #How many wins the user has
+h = 0 #How many wins the house has
+
+def getCValue(card):
+    if card[0] in '23456789':
+        value = int(card[0])
+        uHand.append(value)
+    elif card[0] in 'TJQK':
+        value = 10
+        uHand.append(value)
+    elif 'A' in card[0]:
+        value = 11
+        uHand.append(value)
+
+def total():
+    global t
+    #How many aces in the hand
+    aces = uHand.count(11)
+    t = sum(uHand)
+    #You have gone over 21 but there is an ace
+    if t > 21 and aces > 0 and len(uHand) < 5:
+        while aces > 0 and t > 21:
+        #This will switch the ace from 11 to 1
+            t -= 10
+            aces -= 1
+        print
+        print 'Total: ' + str(t)
+        print
+    elif t > 21 and aces > 0 and len(uHand) == 5:
+        while aces > 0 and t > 21:
+        #This will switch the ace from 11 to 1
+            t -= 10
+            aces -= 1
+    elif aces == 0 and len(uHand) < 5:
+        print
+        print 'Total: ' + str(t)
+        print
+    elif aces == 0 and len(uHand) == 5:
+        pass
+
+def evalHand():
+    global u
+    global h
+    global hit
+    global stand
+    global gameOver
+    total()
+    if t == 21 and len(uHand) == 2:
+        print 'Blackjack!'
+        print 'You win!'
+        writeYouWin()
+        gameOver = True
+        u += 1
+        return gameOver
+    elif t < 21:
+        global i
+        if i > 0:
+            i -= 1
+        while stand == False:
+            hitOrstand = raw_input('Enter h to hit. Enter s to stand. ')
+            if hitOrstand == 'h':
+                hit = True
+                break
+            elif hitOrstand == 's':
+                stand = True
+                break
+            else:
+                print 'Please enter either h for hit or s for stand.'
+
+    elif len(uHand) > 2 and t == 21:
+        stand = True
+        return stand
+    elif t > 21:
+        writeYouLose()
+        print 'You busted!'
+        print 'Dealer wins.'
+        h += 1
+        gameOver = True
+      
+def hitOrStand1():
+    if t < 21 and hit == True and stand == False:
+        mCard3()
+        getCard3()
+        addV(card3, 'c3')
+        addS(card3, 'c3')
+        getCValue(card3)
+        evalHand()
+    elif stand == True:
+        return
+
+def hitOrStand2():
+    if t < 21 and hit == True and stand == False:
+        mCard4()
+        getCard4()
+        addV(card4, 'c4')
+        addS(card4, 'c4')
+        random.shuffle(deck)
+        getCValue(card4)
+        evalHand()
+    elif stand == True:
+        return
+
+def hitOrStand3():
+    global u
+    global h
+    global gameOver
+    if t < 21 and hit == True and stand == False:
+        getCard5()
+        getCValue(card5)
+        total()
+        if t <= 21:
+            print
+            print 'Your fifth card: '
+            time.sleep(2)
+            print card5
+            print
+            print 'Total: ' + str(t)
+            print '5 Card Charlie!'
+            print 'You win!'
+            print
+            writeYouWin()
+            u += 1
+            gameOver = True
+            
+        else:
+            print
+            print 'Your fifth card: '
+            time.sleep(2)
+            print card5
+            print
+            print 'Total: ' + str(t)
+            print 'You busted.'
+            print 'Dealer wins.'
+            print
+            writeYouLose()
+            h += 1
+            gameOver = True
+    elif stand == True:
+        return
+
+############################## House Card Values ###############################
+def getHValue(card):
+    if card[0] in '23456789':
+        value = int(card[0])
+        hHand.append(value)
+    elif card[0] in 'TJQK':
+        value = 10
+        hHand.append(value)
+    elif 'A' in card[0]:
+        value = 11
+        hHand.append(value)
+
+def hTotal():
+    global ht
+    #How many aces in the hand
+    aces = hHand.count(11)
+    ht = sum(hHand)
+    #You have gone over 21 but there is an ace
+    if ht > 21 and aces > 0:
+        while aces > 0 and ht > 21:
+        #This will switch the ace from 11 to 1
+            ht -= 10
+            aces -= 1
+    else:
+        return
+
+def evalHouse():
+    global u
+    global h
+    global gameOver
+    global dHit
+    hTotal()
+    if ht > t and ht <= 21:
+        print
+        print 'Dealer total: ' + str(ht)
+        print 'Dealer wins.'
+        writeYouLose()
+        gameOver = True
+        h += 1
+        return gameOver
+
+    elif ht < 21 and ht < t:
+        dHit = True
+        return dHit
+
+    elif ht == t:
+        print
+        print 'Dealer total: ' + str(ht)
+        print 'Tie goes to the dealer.'
+        print 'Dealer wins.'
+        writeYouLose()
+        gameOver = True
+        h += 1
+        return gameOver
+
+    elif ht > 21:
+        print
+        print 'Dealer total: ' + str(ht)
+        print 'Dealer busted!'
+        print 'You win.'
+        writeYouWin()
+        gameOver = True
+        u += 1
+        return gameOver
+
+def hit1():
+    if dHit == True and gameOver == False:
+        mHouse2()
+        getHouse2()
+        addV(house2, 'h2')
+        addS(house2, 'h2')
+        getHValue(house2)
+        evalHouse()
+    else:
+        return
+
+def hit2():
+    if dHit == True and gameOver == False:
+        mHouse3()
+        getHouse3()
+        addV(house3, 'h3')
+        addS(house3, 'h3')
+        getHValue(house3)
+        evalHouse()
+    else:
+        return
+
+def hit3():
+    if dHit == True and gameOver == False:
+        mHouse4()
+        getHouse4()
+        addV(house4, 'h4')
+        addS(house4, 'h4')
+        getHValue(house4)
+        evalHouse()
+    else:
+        return
+def hit4():
+    global h
+    global u
+    if dHit == True and gameOver == False:
+        getHouse5()
+        getHValue(house5)
+        hTotal()
+        if ht > 21:
+            print
+            print "Dealer's fifth card: "
+            time.sleep(2)
+            print house5
+            print
+            print 'Dealer total: ' + str(ht)
+            print 'Dealer busts!'
+            print 'You win!'
+            writeYouWin()
+            u += 1
+    
+        elif ht <= 21:
+            print
+            print "Dealer's fifth card: "
+            time.sleep(2)
+            print house5
+            print
+            print 'Dealer total: ' + str(ht)
+            print 'Dealer: 5 Card Charlie!'
+            print 'Dealer wins.'
+            writeYouLose()
+            h += 1
+            
+    else:
+        return
+            
+################################################################################
+def userCards():
+    firstCards()
+    getCValue(card1)
+    getCValue(card2)
+    evalHand()
+    hitOrStand1()
+    hitOrStand2()
+    hitOrStand3()
+
+def houseCards():
+    if stand == True and gameOver == False:
+        hit1()
+        getHValue(house1)
+        evalHouse()
+        if gameOver == False:
+            wn.delay(3)
+            hit2()
+            if gameOver == False:
+                wn.delay(3)
+                hit3()
+                if gameOver == False:
+                    wn.delay(3)
+                    hit4()
+    else:
+        pass
+
+def winner():
+    if h == 5 or u == 5:
+        if h == 5:
+            print
+            print 'The dealer has won 5 games! He wins the match!'
+            print 'Better luck next time!'
+            print 'Thanks for playing!'
+            printLine(79, '=')
+            wn.bye()
+            sys.exit()
+        elif u == 5:
+            print
+            print 'You have won 5 games! You win the match!'
+            print 'Congrats!'
+            print 'Thanks for playing!'
+            printLine(79, '=')
+            wn.bye()
+            sys.exit()
+    else:
+        pass
+
+def main():
+    userCards()
+    houseCards()
+    winner()
+
+def restart():
+    global gameOver
+    global hit
+    global stand
+    global dHit
+    global t
+    global ht
+    global i
+    global deck
+    while True:
+        print
+        printLine(79, '=')
+        print 'Score... Dealer: ' + str(h) + ' Player: ' + str(u)
+        restart = raw_input('Do you want to play again? (Y/N) ').lower()
+        if 'y' in restart:
+            del deck[:]
+            deck = []
+            for face in '23456789TJQKA': 
+                for suit in 'CDHS': 
+                    deck.append(face + suit) 
+            clear()
+            del uHand[:]
+            del hHand[:]
+            gameOver = False
+            hit = False
+            stand = False
+            dHit = True
+            t = 0
+            ht = 0
+            i = 1
+            main()
+        elif 'n' in restart:
+            print
+            print 'Thanks for playing!'
+            print 'Goodbye!'
+            printLine(79, '=')
+            wn.bye()
+            sys.exit()
+
+main()
+restart()
+
+
+
