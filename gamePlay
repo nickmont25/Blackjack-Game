@@ -1,7 +1,6 @@
 import random
 import sys
 from CardCreation import *
-from usefulFunctions import printLine
 from slowPrintFunction import slowPrint
 import time
 
@@ -11,6 +10,9 @@ November 20, 2015
 
 This is a blackjack game. Please consult the instructions in the menu to learn
 the controls and how to play."""
+
+def printLine(lineLength, c):
+    print c * lineLength
 
 #################################### Menu ######################################
 menu = """
