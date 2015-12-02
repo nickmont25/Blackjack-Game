@@ -1,0 +1,44 @@
+def slowPrint(s, delay = 0.025, maxLineLength = 80, deleteNewLines = True):
+    import time, sys
+    
+
+    if deleteNewLines:
+        s = s.replace('\n', ' ')
+        s = s.replace('~', '\n')
+        
+    length = 0
+    index = 0
+
+
+    for c in s:
+        index += 1
+        length += 1
+
+        if c == ' ':
+            #Don't print the space if it is the first line character
+            if length == 1:
+                length -=1
+                continue
+            #If space is last character or would start next line don't print it
+            if length >= maxLineLength - 1:
+                length = 0
+                print 
+                continue
+            nextWord = s[index:].find(' ')
+            nextLine = s[index:].find('\n')
+            if nextLine < nextWord and nextLine != -1:
+                nextWord = nextLine
+            if length + nextWord > maxLineLength and length > maxLineLength - 20:
+                length = 0
+                print
+                continue
+        sys.stdout.write(c)
+        sys.stdout.flush()
+        time.sleep(delay)
+        if c == '\n':
+            length = 0
+        if length == maxLineLength:
+            print
+            length = 0
+
+
