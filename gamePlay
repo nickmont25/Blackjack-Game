@@ -4,6 +4,8 @@ from CardCreation import *
 from slowPrintFunction import slowPrint
 import time
 
+#Start
+
 """Nick Monteleone
 Computer Science
 November 20, 2015
