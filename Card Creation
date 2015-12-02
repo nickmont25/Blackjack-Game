@@ -1,0 +1,753 @@
+#Card Creation
+import turtle
+
+wn = turtle.Screen()
+wn.setworldcoordinates(-100, -100, 100, 100)
+wn.bgcolor('black')
+
+def goto(x, y): #Moves only the value turtle to a certain spot with pen up
+    value.up()
+    value.setpos(x, y)
+    value.down()
+    value.seth(0)
+
+def vaya(x, y): #Moves only the suit turtle to a certain spot with pen up
+    suit.up()
+    suit.setpos(x, y)
+    suit.down()
+    suit.seth(0)
+
+################################ CARD OUTLINES #################################
+rectangle = turtle.Turtle()
+rectangle.color('white')
+rectangle.pensize(0)
+rectangle.speed(0)
+
+#Draws Card Outline
+def drawRect():
+    rectangle.begin_fill()
+    rectangle.seth(0)
+    rectangle.forward(40)
+    rectangle.right(90)
+    rectangle.forward(90)
+    rectangle.right(90)
+    rectangle.forward(40)
+    rectangle.right(90)
+    rectangle.forward(90)
+    rectangle.end_fill()
+
+#Places each user card in its correct spot
+def pCard1(): 
+    rectangle.up()
+    rectangle.setpos(-99, 99)
+    rectangle.down()
+    
+def pCard2():
+    rectangle.up()
+    rectangle.setpos(-57, 99)
+    rectangle.seth(0)
+    rectangle.down()
+
+def pCard3():
+    rectangle.up()
+    rectangle.setpos(-15, 99)
+    rectangle.seth(0)
+    rectangle.down()
+
+def pCard4():
+    rectangle.up()
+    rectangle.setpos(27, 99)
+    rectangle.seth(0)
+    rectangle.down()
+    
+#Creates each user card
+def mCard1(): 
+    pCard1()
+    drawRect()
+
+def mCard2():
+    pCard2()
+    drawRect()
+
+def mCard3():
+    pCard3()
+    drawRect()
+
+def mCard4():
+    pCard4()
+    drawRect()
+
+#Places each house card in its correct spot
+def pHouse1(): 
+    rectangle.up()
+    rectangle.setpos(-99, -9)
+    rectangle.down()
+    
+def pHouse2():
+    rectangle.up()
+    rectangle.setpos(-57, -9)
+    rectangle.seth(0)
+    rectangle.down()
+
+def pHouse3():
+    rectangle.up()
+    rectangle.setpos(-15, -9)
+    rectangle.seth(0)
+    rectangle.down()
+
+def pHouse4():
+    rectangle.up()
+    rectangle.setpos(27, -9)
+    rectangle.seth(0)
+    rectangle.down()
+
+#### Dividing Line ####
+line = turtle.Turtle()
+line.color('grey')
+line.speed(10)
+line.pensize(3)
+
+def dotted(distance):
+    while distance > 0:
+        line.forward(10)
+        line.up()
+        line.forward(5)
+        line.down()
+        distance -=15
+
+def dividingLine():
+    line.up()
+    line.setpos(-100, 0)
+    line.down()
+    dotted(200)
+
+#Makes each house card
+def mHouse1():
+    rectangle.seth(0)
+    pHouse1()
+    drawRect()
+
+def mHouse2():
+    pHouse2()
+    drawRect()
+
+def mHouse3():
+    pHouse3()
+    drawRect()
+
+def mHouse4():
+    pHouse4()
+    drawRect()
+
+
+################################## Card Values #################################
+value = turtle.Turtle()
+value.color('dark blue')
+value.pensize(5)
+value.speed(0)
+
+#Places each value in the default spot
+def pValueC1():
+    goto(-79, 76.5)
+
+def pValueC2():
+    goto(-37, 76.5)
+
+def pValueC3():
+    goto(5, 76.5)
+
+def pValueC4():
+    goto(47, 76.5)
+
+def pValueH1():
+    goto(-79, -31.5)
+
+def pValueH2():
+    goto(-37, -31.5)
+
+def pValueH3():
+    goto(5, -31.5)
+
+def pValueH4():
+    goto(47, -31.5)
+
+#Finds correct card to write value on based on input
+def findCard(card):
+    if 'c' in card:
+        if '1' in card:
+            pValueC1()
+        elif '2' in card:
+            pValueC2()
+        elif '3' in card:
+            pValueC3()
+        elif '4' in card:
+            pValueC4()
+    elif 'h' in card:
+        if '1' in card:
+            pValueH1()
+        elif '2' in card:
+            pValueH2()
+        elif '3' in card:
+            pValueH3()
+        elif '4' in card:
+            pValueH4()
+
+#Adds each value to each card
+def write2(card):
+    def make2():
+        value.left(45)
+        value.circle(7, 180)
+        value.circle(7, -180)
+        value.right(180)
+        value.forward(15)
+        value.left(135)
+        value.forward(15)
+    def place2():
+        findCard(card)
+    place2()
+    make2()
+
+def write3(card):
+    def make3():
+        value.circle(7, 210)
+        value.circle(7, -210)
+        value.right(180)
+        value.circle(7, -210)
+        value.seth(0)
+    def place3():
+        findCard(card)
+    place3()
+    make3()
+
+def write4(card):
+    def make4():
+        value.up()
+        value.backward(6)
+        value.left(90)
+        value.forward(10)
+        value.seth(0)
+        value.down()
+        value.right(90)
+        value.forward(10)
+        value.left(90)
+        value.forward(12)
+        value.backward(2)
+        value.left(90)
+        value.forward(8)
+        value.backward(16)
+    def place4():
+       findCard(card)
+    place4()
+    make4()
+
+def write5(card):
+    def make5():
+        value.up()
+        value.forward(5)
+        value.left(90)
+        value.forward(10)
+        value.seth(0)
+        value.down()
+        value.backward(10)
+        value.right(90)
+        value.forward(5)
+        value.right(70)
+        value.circle(7, -220)
+        value.seth(0)
+    def place5():
+        findCard(card)
+    place5()
+    make5()
+
+def write6(card):
+    def make6():
+        value.up()
+        value.right(90)
+        value.forward(10)
+        value.seth(0)
+        value.down()
+        value.right(30)
+        value.circle(12, -145)
+        value.circle(12, 145)
+        value.circle(7, 300)
+        value.seth(0)
+    def place6():
+        findCard(card)
+    place6()
+    make6()
+
+def write7(card):
+    def make7():
+        value.up()
+        value.backward(9)
+        value.left(90)
+        value.forward(10)
+        value.seth(0)
+        value.down()
+        value.forward(10)
+        value.right(110)
+        value.forward(20)
+        value.left(110)
+    def place7():
+        findCard(card)
+    place7()
+    make7()
+
+def write8(card):
+    def make8():
+        value.circle(6)
+        value.left(180)
+        value.circle(8, -360)
+        value.right(180)
+    def place8():
+        findCard(card)
+    place8()
+    make8()
+
+def write9(card):
+    def make9():
+        value.up()
+        value.backward(10)
+        value.down()
+        value.right(70)
+        value.circle(7, -360)
+        value.circle(7, 150)
+        value.left(10)
+        value.backward(15)
+        value.right(90)
+    def place9():
+        findCard(card)
+    place9()
+    make9()
+
+def write10(card):
+    def make10():
+        value.up()
+        value.backward(7)
+        value.left(90)
+        value.forward(10)
+        value.seth(0)
+        value.down()
+        value.right(90)
+        value.forward(20)
+        value.backward(20)
+        value.seth(0)
+        value.up()
+        value.forward(2)
+        value.down()
+        value.right(90)
+        value.forward(20)
+        value.left(90)
+        value.forward(10)
+        value.left(90)
+        value.forward(20)
+        value.left(90)
+        value.forward(10)
+    def place10():
+        findCard(card)
+    place10()
+    make10()
+
+def writeJ(card):
+    def makeJ():
+        value.up()
+        value.left(90)
+        value.forward(10)
+        value.seth(0)
+        value.down()
+        value.forward(7)
+        value.backward(14)
+        value.forward(7)
+        value.right(90)
+        value.forward(10)
+        value.left(180)
+        value.circle(5, -165)
+        value.left(75)
+    def placeJ():
+        findCard(card)
+    placeJ()
+    makeJ()
+
+def writeQ(card):
+    def makeQ():
+        value.up()
+        value.right(90)
+        value.forward(5)
+        value.seth(0)
+        value.down()
+        value.circle(10, -360)
+        value.up()
+        value.seth(90)
+        value.forward(8)
+        value.seth(0)
+        value.down()
+        value.right(45)
+        value.forward(15)
+        value.left(45)
+    def placeQ():
+        findCard(card)
+    placeQ()
+    makeQ()
+
+def writeK(card):
+    def makeK():
+        value.up()
+        value.backward(5)
+        value.left(90)
+        value.forward(10)
+        value.seth(0)
+        value.down()
+        value.right(90)
+        value.forward(24)
+        value.backward(12)
+        value.left(135)
+        value.forward(15)
+        value.backward(15)
+        value.right(90)
+        value.forward(15)
+        value.left(45)
+    def placeK():
+        findCard(card)
+    placeK()
+    makeK()
+
+def writeA(card):
+    def makeA():
+        value.up()
+        value.left(90)
+        value.forward(10)
+        value.seth(0)
+        value.down()
+        value.right(70)
+        value.forward(20)
+        value.backward(20)
+        value.right(40)
+        value.forward(20)
+        value.backward(10)
+        value.left(110)
+        value.forward(7)
+    def placeA():
+        findCard(card)
+    placeA()
+    makeA()
+
+#################################### Suits #####################################
+suit = turtle.Turtle()
+suit.color('black')
+suit.speed(0)
+
+#Places each suit in the default spot
+def pSuitC1():
+    vaya(-79, 33.5)
+
+def pSuitC2():
+    vaya(-37, 33.5)
+
+def pSuitC3():
+    vaya(5, 33.5)
+
+def pSuitC4():
+    vaya(47, 33.5)
+
+def pSuitH1():
+    vaya(-79, -74.5)
+
+def pSuitH2():
+    vaya(-37, -74.5)
+
+def pSuitH3():
+    vaya(5, -74.5)
+
+def pSuitH4():
+    vaya(47, -74.5)
+
+#Finds correct card to write suit on based on input
+def chooseCard(card):
+    if 'c' in card:
+        if '1' in card:
+            pSuitC1()
+        elif '2' in card:
+            pSuitC2()
+        elif '3' in card:
+            pSuitC3()
+        elif '4' in card:
+            pSuitC4()
+    elif 'h' in card:
+        if '1' in card:
+            pSuitH1()
+        elif '2' in card:
+            pSuitH2()
+        elif '3' in card:
+            pSuitH3()
+        elif '4' in card:
+            pSuitH4()
+
+def addHeart(card):
+    def makeHeart():
+        suit.color('red')
+        suit.up()
+        suit.forward(18)
+        suit.down()
+        def heart():
+            suit.begin_fill()
+            def halfCircle():
+                suit.left(90)
+                suit.circle(9, 180)
+                suit.right(180)
+                suit.circle(9, 180)
+            halfCircle()
+            def triangle():
+                suit.left(40)
+                suit.forward(28)
+                suit.left(100)
+                suit.forward(28)
+            triangle()
+            suit.end_fill()
+            suit.ht()
+        heart()
+    def placeHeart():
+        chooseCard(card)
+    placeHeart()
+    makeHeart()
+
+def addDiamond(card):
+    def makeDiamond():
+        suit.color('red')
+        suit.up()
+        suit.forward(13.5)
+        suit.right(90)
+        suit.forward(5)
+        suit.seth(0)
+        suit.down()
+        def diamond():
+            suit.begin_fill()
+            suit.left(135)
+            suit.forward(20)
+            suit.left(90)
+            suit.forward(20)
+            suit.left(90)
+            suit.forward(20)
+            suit.left(90)
+            suit.forward(20)
+            suit.end_fill()
+            suit.ht()
+        diamond()
+    def placeDiamond():
+        chooseCard(card)
+    placeDiamond()
+    makeDiamond()
+
+def addSpade(card):
+    def makeSpade():
+        suit.color('black')
+        suit.up()
+        suit.backward(15)
+        suit.right(90)
+        suit.forward(7)
+        suit.seth(0)
+        suit.down()
+        def spade():
+            suit.begin_fill()
+            def halfCircle():
+                suit.right(90)
+                suit.circle(7, 180)
+            def bottom():
+                suit.right(180)
+                suit.forward(6)
+                suit.right(20)
+                suit.forward(4)
+                suit.left(110)
+                suit.forward(5)
+                suit.left(110)
+                suit.forward(4)
+                suit.right(20)
+                suit.forward(6)
+                suit.right(90)
+            def triangle():
+                suit.left(42)
+                suit.forward(22)
+                suit.left(95)
+                suit.forward(22)
+            halfCircle()
+            bottom()
+            halfCircle()
+            triangle()
+            suit.end_fill()
+            suit.ht()
+        spade()
+    def placeSpade():
+        chooseCard(card)
+    placeSpade()
+    makeSpade()
+
+def addClub(card):
+    def makeClub():
+        suit.color('black')
+        suit.up()
+        suit.right(90)
+        suit.forward(10)
+        suit.seth(0)
+        suit.down()
+        def club():
+            suit.begin_fill()
+            suit.right(90)
+            suit.circle(8, 300)
+            suit.right(180)
+            suit.circle(8,300)
+            suit.right(180)
+            suit.circle(8, 275)
+            suit.seth(-90)
+            suit.right(35)
+            suit.forward(2)
+            suit.seth(-90)
+            suit.forward(4)
+            suit.seth(0)
+            suit.forward(2.7)
+            suit.left(90)
+            suit.forward(4)
+            suit.forward(2)
+            suit.end_fill()
+        club()
+    def placeClub():
+        chooseCard(card)
+    placeClub()
+    makeClub()
+
+################################# Win/Lose #####################################
+win = turtle.Turtle()
+win.color('green')
+win.pensize(5)
+win.speed(0)
+
+def writeYou():
+    win.up()
+    win.goto(80, 50)
+    win.down()
+    win.seth(-45)
+    win.forward(5)
+    win.left(90)
+    win.forward(5)
+    win.backward(5)
+    win.seth(-90)
+    win.forward(7)
+    win.up()
+    win.seth(0)
+    win.forward(3)
+    win.down()
+    win.circle(2, 360)
+    win.up()
+    win.seth(90)
+    win.forward(3)
+    win.seth(0)
+    win.forward(3)
+    win.down()
+    win.right(90)
+    win.forward(3)
+    win.left(90)
+    win.forward(3)
+    win.left(90)
+    win.forward(3)
+
+def writeWin():
+    win.up()
+    win.goto(78, 25)
+    win.seth(-70)
+    win.down()
+    win.forward(7)
+    win.seth(60)
+    win.forward(4)
+    win.seth(-60)
+    win.forward(4)
+    win.seth(70)
+    win.forward(7)
+    win.up()
+    win.seth(0)
+    win.forward(3)
+    win.down()
+    win.right(90)
+    win.dot(3)
+    win.up()
+    win.forward(2)
+    win.down()
+    win.forward(5)
+    win.up()
+    win.seth(0)
+    win.forward(3)
+    win.left(90)
+    win.down()
+    win.forward(5)
+    win.backward(1)
+    win.seth(0)
+    win.forward(3)
+    win.right(90)
+    win.forward(4)
+    win.up()
+    win.seth(0)
+    win.forward(3)
+    win.seth(90)
+    win.down()
+    win.dot(3)
+    win.up()
+    win.forward(2)
+    win.down()
+    win.forward(5)
+    win.ht()
+
+def writeLose():
+    win.up()
+    win.goto(78, 25)
+    win.seth(-90)
+    win.down()
+    win.forward(7)
+    win.seth(0)
+    win.forward(4)
+    win.up()
+    win.goto(84, 18)
+    win.down()
+    win.circle(2, 360)
+    win.up()
+    win.goto(88, 20)
+    win.down()
+    win.right(20)
+    win.circle(1, -200)
+    win.circle(1, 200)
+    win.seth(180)
+    win.circle(1.5, -200)
+    win.up()
+    win.goto(91, 22)
+    win.seth(-90)
+    win.down()
+    win.forward(4)
+    win.seth(0)
+    win.forward(3)
+    win.backward(3)
+    win.left(90)
+    win.forward(2)
+    win.right(90)
+    win.forward(2)
+    win.backward(2)
+    win.right(90)
+    win.backward(2)
+    win.seth(0)
+    win.forward(3)
+    win.ht()
+    
+
+def writeYouWin():
+    writeYou()
+    writeWin()
+
+def writeYouLose():
+    writeYou()
+    writeLose()
+
+def clear():
+    win.clear()
+    suit.clear()
+    rectangle.clear()
+    value.clear()
+        
+   
+
+
+
